@@ -132,7 +132,7 @@ def feature_vecs_NLP(train_pos, train_neg, test_pos, test_neg):
     #   (1) Contains no stop words
     #   (2) Is in at least 1% of the positive texts or 1% of the negative texts
     #   (3) Is in at least twice as many postive texts as negative texts, or vice-versa.
-    # YOUR CODE HERE
+    
     train_pos_vec = remove_stop_words(train_pos, stopwords)
     train_neg_vec = remove_stop_words(train_neg, stopwords)	
     pos_dict = createDict(train_pos_vec) #This function also filters based on min threshold
@@ -140,7 +140,7 @@ def feature_vecs_NLP(train_pos, train_neg, test_pos, test_neg):
     valid_entires = filter_keys(pos_dict, neg_dict)	#This function filters based on 3rd criteria
     # Using the above words as features, construct binary vectors for each text in the training and test set.
     # These should be python lists containing 0 and 1 integers.
-    # YOUR CODE HERE
+    
     train_pos_vec = createBinaryVector(train_pos, valid_entires)
     train_neg_vec = createBinaryVector(train_neg, valid_entires)
     test_pos_vec = createBinaryVector(test_pos, valid_entires)
@@ -156,7 +156,7 @@ def feature_vecs_DOC(train_pos, train_neg, test_pos, test_neg):
     """
     # Doc2Vec requires LabeledSentence objects as input.
     # Turn the datasets from lists of words to lists of LabeledSentence objects.
-    # YOUR CODE HERE
+    
     labeled_train_pos = []
     for i in range(len(train_pos)):
         labeled_train_pos.append(LabeledSentence(train_pos[i], [u'TRAIN_POS_' + str(i)]))	
@@ -180,7 +180,7 @@ def feature_vecs_DOC(train_pos, train_neg, test_pos, test_neg):
         random.shuffle(sentences)
         model.train(sentences)
     # Use the docvecs function to extract the feature vectors for the training and test data
-    # YOUR CODE HERE
+    
     train_pos_vec=[]
     for i in range(len(train_pos)):
         train_pos_vec.append(model.docvecs[u'TRAIN_POS_' + str(i)])
@@ -206,7 +206,7 @@ def build_models_NLP(train_pos_vec, train_neg_vec):
     # Use sklearn's BernoulliNB and LogisticRegression functions to fit two models to the training data.
     # For BernoulliNB, use alpha=1.0 and binarize=None
     # For LogisticRegression, pass no parameters
-    # YOUR CODE HERE
+    
     nb_model = BernoulliNB(alpha=1.0, binarize=None)
     nb_model.fit(np.array(train_pos_vec + train_neg_vec), np.array(Y))
     lr_model = LogisticRegression()
@@ -222,7 +222,7 @@ def build_models_DOC(train_pos_vec, train_neg_vec):
     Y = ["pos"]*len(train_pos_vec) + ["neg"]*len(train_neg_vec)
     # Use sklearn's GaussianNB and LogisticRegression functions to fit two models to the training data.
     # For LogisticRegression, pass no parameters
-    # YOUR CODE HERE
+    
     nb_model = GaussianNB()
     nb_model.fit(np.array(train_pos_vec + train_neg_vec), np.array(Y))
     lr_model = LogisticRegression()
@@ -236,7 +236,7 @@ def evaluate_model(model, test_pos_vec, test_neg_vec, print_confusion=False):
     Prints the confusion matrix and accuracy of the model.
     """
     # Use the predict function and calculate the true/false positives and true/false negative.
-    # YOUR CODE HERE
+    
     tp = 0
     fn = 0
     p_predict = model.predict(test_pos_vec)
