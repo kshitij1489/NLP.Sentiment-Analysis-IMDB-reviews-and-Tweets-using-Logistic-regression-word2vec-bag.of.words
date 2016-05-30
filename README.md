@@ -11,4 +11,5 @@ In this project we implement
 References:
 
 [1] http://ai.stanford.edu/~amaas/data/sentiment/
+
 [2] http://thinknook.com/twitter-sentiment-analysis-training-corpus-dataset-2012-09-22/
